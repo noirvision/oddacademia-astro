@@ -1,0 +1,59 @@
+---
+import '../styles/normalize.css';
+import '../styles/components.css';
+import '../styles/odd-academia.css';
+import '../styles/astro.css';
+
+interface Props {
+  title: string;
+  /** Webflow page id, used by webflow.js / IX2. */
+  wfPage: string;
+  /** When set, the full description + social preview meta set is rendered. */
+  description?: string;
+}
+
+const WF_SITE = '674600c015f207d3042a5949';
+const { title, wfPage, description } = Astro.props;
+const ogImage = new URL('/opengraph.png', Astro.site).href;
+---
+
+<!doctype html>
+<html data-wf-page={wfPage} data-wf-site={WF_SITE} lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <meta name="robots" content="noindex" />
+    {description && <meta content={description} name="description" />}
+    <meta content={title} property="og:title" />
+    {description && <meta content={description} property="og:description" />}
+    {description && <meta content={ogImage} property="og:image" />}
+    <meta content={title} name="twitter:title" />
+    {description && <meta content={description} name="twitter:description" />}
+    {description && <meta content={ogImage} name="twitter:image" />}
+    {description && <meta property="og:type" content="website" />}
+    {description && <meta content="summary_large_image" name="twitter:card" />}
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <slot name="head" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      !function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);
+    </script>
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <link href="/images/webclip.png" rel="apple-touch-icon" />
+  </head>
+  <body>
+    <slot />
+    <script
+      is:inline
+      src="/js/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"></script>
+    <script is:inline src="/js/webflow.js"></script>
+    <slot name="scripts" />
+  </body>
+</html>

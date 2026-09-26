@@ -1,0 +1,25 @@
+---
+interface Props {
+  /** Class added to the icons (header uses `top-icon`). */
+  iconClass?: string;
+  'data-w-id'?: string;
+}
+
+const { iconClass, ...attrs } = Astro.props;
+
+const links = [
+  { href: 'https://www.facebook.com/profile.php?id=61567286615576', icon: 'facebook', label: 'Facebook' },
+  { href: 'https://www.instagram.com/odd_academia/', icon: 'instagram', label: 'Instagram' },
+  { href: 'https://www.linkedin.com/company/odd-academia/about/', icon: 'linkedin', label: 'LinkedIn' },
+];
+---
+
+<div {...attrs} class="top-socials-wrap">
+  {
+    links.map((l) => (
+      <a href={l.href} target="_blank" rel="noopener" class="social-01 w-inline-block" aria-label={l.label}>
+        <img src={`/images/${l.icon}.svg`} loading="lazy" alt="" class={iconClass} />
+      </a>
+    ))
+  }
+</div>

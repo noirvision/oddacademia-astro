@@ -1,0 +1,82 @@
+---
+import ContentImage from './ContentImage.astro';
+import key1 from '../assets/key-01.avif';
+import key2 from '../assets/key-02.avif';
+import key3 from '../assets/key-03.png';
+
+// Webflow grid-placement ids: `w-node-<id>-<page>`, with `_` when <id> starts with a digit.
+const nodeId = (id: string) => `w-node-${/^\d/.test(id) ? '_' : ''}${id}-042a594c`;
+
+const features = [
+  {
+    img: key1,
+    fallback: 'jpg' as const,
+    textId: '78e886f6-9ca0-5e06-7713-1774107e1a0f',
+    imgId: '78e886f6-9ca0-5e06-7713-1774107e1a14',
+    imageFirst: false,
+    titleClass: 'h3 _36 bm-24 mob-24 mob-left',
+    title: 'Reach Key Audiences',
+    lead: 'Gain Visibility Beyond Traditional Platforms.',
+    text: 'Odd Academia lets you bypass conventional publishing channels and reach readers globally, allowing your work without gatekeeping to connect with the right people.',
+  },
+  {
+    img: key2,
+    fallback: 'png' as const,
+    textId: '59379ce9-a95c-3db7-3262-d5f587418605',
+    imgId: '59379ce9-a95c-3db7-3262-d5f58741860c',
+    imageFirst: true,
+    titleClass: 'h3 _36 bm-24 mob-24',
+    title: 'Build Your Professional Profile',
+    lead: 'Enhance Your Career Through Peer Validation',
+    text: 'With each publication, strengthen your professional portfolio and build credibility through community-driven reviews, showcasing your expertise to future employers and collaborators.',
+  },
+  {
+    img: key3,
+    fallback: 'png' as const,
+    textId: 'cfd1aa40-6d0b-da46-0f7b-0cc4d69b25ae',
+    imgId: 'cfd1aa40-6d0b-da46-0f7b-0cc4d69b25b5',
+    imageFirst: false,
+    titleClass: 'h3 _36 bm-24 mob-24',
+    title: 'A Platform for Innovators',
+    lead: 'Freedom to Share Ideas and Break Barriers',
+    text: 'Odd Academia is a home for bold ideas and innovation, providing a publishing space for those with fresh insights and unconventional approaches to research.',
+  },
+];
+---
+
+<div class="section _120-120">
+  <div class="container">
+    <h2 data-w-id="7dc9ecdc-c837-db05-bade-9c35cd12441a" class="h2 bm-40 mob-32">Key Features</h2>
+    {
+      features.map((f, i) => {
+        const text = (
+          <div id={nodeId(f.textId)} data-w-id={f.textId} class="_2-col-text-wrap _530">
+            <h3 class={f.titleClass}>{f.title}</h3>
+            <p class="_20-150 med bm-8">{f.lead}</p>
+            <p class="_20-150 _70">{f.text}</p>
+          </div>
+        );
+        const image = (
+          <div id={nodeId(f.imgId)} data-w-id={f.imgId} class="_2-col-text-wrap img">
+            <ContentImage
+              src={f.img}
+              width={530}
+              widths={[400, 530, 800, 1060]}
+              sizes="(max-width: 767px) 83vw, 530px"
+              fallback={f.fallback}
+              class="sect-img"
+            />
+          </div>
+        );
+        return (
+          <>
+            {i > 0 && <div class="horizontal-deco-line" />}
+            <div class="w-layout-grid _2-col-grid">
+              {f.imageFirst ? [image, text] : [text, image]}
+            </div>
+          </>
+        );
+      })
+    }
+  </div>
+</div>

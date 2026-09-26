@@ -1,0 +1,33 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> & {
+  src: ImageMetadata;
+  /** Rendered (CSS) width in px, as in the Webflow export. */
+  width: number;
+  widths: number[];
+  sizes: string;
+  /** Above-the-fold image: eager + high fetch priority. */
+  priority?: boolean;
+  /** Fallback for browsers without AVIF/WebP. Use `png` when the image has transparency. */
+  fallback?: 'jpg' | 'png';
+};
+
+const { src, width, widths, sizes, priority = false, fallback = 'png', alt = '', ...attrs } = Astro.props;
+---
+
+<Picture
+  src={src}
+  width={width}
+  widths={widths.filter((w) => w <= src.width)}
+  sizes={sizes}
+  formats={['avif', 'webp']}
+  fallbackFormat={fallback}
+  alt={alt}
+  loading={priority ? 'eager' : 'lazy'}
+  decoding={priority ? 'sync' : 'async'}
+  fetchpriority={priority ? 'high' : undefined}
+  {...attrs}
+/>

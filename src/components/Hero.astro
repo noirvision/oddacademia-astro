@@ -1,0 +1,30 @@
+---
+import Header from './Header.astro';
+import ContentImage from './ContentImage.astro';
+import hero from '../assets/hero.avif';
+---
+
+<section data-w-id="ba8fcd4c-9aad-2784-49a7-2b5076f2bb34" class="section m-10-10 blue tm-34 hero-bg">
+  <div class="container hero">
+    <Header />
+    <div id="w-node-ba8fcd4c-9aad-2784-49a7-2b5076f2bb40-042a594c" class="hero-wrap">
+      <h1 data-w-id="ba8fcd4c-9aad-2784-49a7-2b5076f2bb41" class="h1 mob-left">
+        Your Multidisciplinary Journey Begins Here
+      </h1>
+      <p data-w-id="ba8fcd4c-9aad-2784-49a7-2b5076f2bb43" class="_20-160 center white _1007 mob-left">
+        Odd Academia is a platform empowering early-career researchers and independent thinkers to publish and share
+        their work without restraint. Bypassing traditional gatekeeping, we bring fresh ideas and perspectives that are
+        true to the scientific method directly to readers, evolving the way people consume and produce new knowledge.
+      </p>
+    </div><ContentImage
+      src={hero}
+      width={962}
+      widths={[480, 800, 962, 1440]}
+      sizes="(max-width: 479px) 83vw, (max-width: 767px) 89vw, (max-width: 1045px) 92vw, 962px"
+      fallback="jpg"
+      priority
+      data-w-id="580709bc-4d56-5a2e-9d0d-ce7fb8f04d05"
+      class="hero-img"
+    />
+  </div>
+</section>
