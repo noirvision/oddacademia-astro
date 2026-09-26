@@ -37,6 +37,12 @@ import Footer from '../components/Footer.astro';
       $(document).ready(function () {
         $('select').niceSelect();
       });
+      // Back/forward cache restores the page with the last choice still selected.
+      // Reset the waitlist dropdown to its "I'm a" placeholder, as on a fresh load.
+      window.addEventListener('pageshow', function (event) {
+        if (!event.persisted) return;
+        $('#IAM').val('').niceSelect('update');
+      });
     </script>
   </Fragment>
 </Base>
