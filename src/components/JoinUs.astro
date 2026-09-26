@@ -1,0 +1,45 @@
+---
+const audiences = [
+  {
+    id: 'cb294e2a-4cdf-48ba-93d8-a1db9d7faa6d',
+    iconId: 'cb294e2a-4cdf-48ba-93d8-a1db9d7faa6e',
+    icon: 'icon-01.svg',
+    title: 'For User',
+    text: 'Ready to share your ideas with the world? Join Odd Academia and publish your work without limits.',
+  },
+  {
+    id: 'cb294e2a-4cdf-48ba-93d8-a1db9d7faa74',
+    iconId: 'cb294e2a-4cdf-48ba-93d8-a1db9d7faa75',
+    icon: 'icon-02.svg',
+    title: 'For Partners',
+    text: 'Collaborate with us to transform academic publishing and bring fresh voices to the forefront.',
+  },
+  {
+    id: 'cb294e2a-4cdf-48ba-93d8-a1db9d7faa7b',
+    iconId: 'cb294e2a-4cdf-48ba-93d8-a1db9d7faa7c',
+    icon: 'icon-03.svg',
+    title: 'For Investor',
+    text: 'Help us build a future where independent research thrives.',
+  },
+];
+---
+
+<div class="section blue _110-130">
+  <div class="container">
+    <h3 data-w-id="cb294e2a-4cdf-48ba-93d8-a1db9d7faa6a" class="h3 _36 center white bm-2rem">Join us</h3>
+    <div class="w-layout-grid _5-col-grid gap-32">
+      {
+        audiences.map((a, i) => (
+          <>
+            {i > 0 && <div class="vert-deco-line" />}
+            <div id={`w-node-${a.id}-042a594c`} data-w-id={a.id} class="_1-grid-wrap">
+              <img src={`/images/${a.icon}`} loading="lazy" alt="" id={`w-node-${a.iconId}-042a594c`} class="icon-01" />
+              <h1 class="h3 center white">{a.title}</h1>
+              <p class="_18-150 center white-70">{a.text}</p>
+            </div>
+          </>
+        ))
+      }
+    </div>
+  </div>
+</div>

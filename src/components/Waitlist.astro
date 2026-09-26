@@ -1,0 +1,262 @@
+---
+/**
+ * "Join the waitlist" form. Markup and classes mirror the Webflow form so the
+ * Webflow success/error states and the nice-select dropdown keep working, but
+ * submissions never leave the browser (see the script below).
+ */
+---
+
+<h2 data-w-id="6da26ae7-d9a1-5324-13ae-73644f8f6f64" class="h2 center bm-12">Join the waitlist</h2>
+<div data-w-id="b5151bcb-1313-97b3-4cb5-9187972bc60d" class="form-block w-form">
+  <div class="style-settings w-embed">
+    <style is:inline>
+
+:root {
+	/* ----------- Colors ----------- */
+	--list-bg-color: #ffffff;
+  --list-text-color: inherit; /* Use "inherit" to take on parent text color */
+  --select-field-arrow-color: #171a27; /* This is the select field arrow color */
+  --border-color-active: black; /* Active State */
+  --border-color-hover: black; /* Select Field could be the same as your form field border color */
+  --list-item-bg-color: #F2F2F2; /* Select Field Hover/Focus State */
+  /* ----------- Spacing ----------- */
+  --select-field-padding-left: 25px; /* Match the padding values for your form fields */
+  --select-field-padding-right: 25px; /* Match the padding values for your form fields */
+  --list-padding-top-bottom: 10px; /* This is the top and bottom padding for the dropdown list */
+  --list-max-height: 220px !important; /* You can set this to "Auto" as well */
+  --list-item-padding-left: 18px; 
+  --list-item-padding-right: 18px;
+  --list-item-min-height: 40px; /* This is the height of each list item in the dropdown */
+  --list-item-line-height: 40px; /* This is the height of each list item in the dropdown */
+           /* ^^^  Make sure both "line-height" and "min-height" are the same! ^^^  */
+}
+.nice-select {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  clear: both;
+  padding-left: var(--select-field-padding-left);
+  padding-right: var(--select-field-padding-right);
+  position: relative;
+  text-align: left !important;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  white-space: nowrap; 
+}
+.nice-select:hover {
+  border-color: var(--border-color-hover); 
+}
+.nice-select:active, .nice-select.open, .nice-select:focus {
+  border-color: var(--border-color-active);
+}
+.nice-select:after {
+  border-bottom: 2px solid var(--select-field-arrow-color);
+  border-right: 2px solid var(--select-field-arrow-color);
+  content: '';
+  display: block;
+  height: 5px;
+  margin-top: -4px;
+  pointer-events: none;
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  -webkit-transform-origin: 66% 66%;
+  -ms-transform-origin: 66% 66%;
+  transform-origin: 66% 66%;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+  width: 5px; 
+}
+.nice-select.open:after {
+  -webkit-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  transform: rotate(-135deg); 
+}
+.nice-select.open .list {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: scale(1) translateY(0);
+  -ms-transform: scale(1) translateY(0);
+  transform: scale(1) translateY(0); 
+}
+.nice-select.disabled {
+  border-color: #ededed;
+  color: #999;
+  pointer-events: none; 
+}
+.nice-select.disabled:after {
+  border-color: #cccccc; 
+}
+.nice-select.wide {
+  width: 100%; 
+}
+.nice-select.wide .list {
+  left: 0 !important;
+  right: 0 !important; 
+}
+.nice-select.right {
+  float: right; 
+}
+.nice-select.right .list {
+  left: auto;
+  right: 0; 
+}
+.nice-select.small {
+  font-size: 12px;
+  height: 36px;
+  line-height: 34px; 
+}
+.nice-select.small:after {
+  height: 4px;
+  width: 4px; 
+}
+.nice-select.small .option {
+  line-height: 34px;
+  min-height: 34px; 
+}
+.nice-select .list {
+  background-color: var(--list-bg-color);
+  color: var(--list-text-color);
+  border-radius: 5px;
+  box-shadow: 0 7px 20px 0px rgba(68, 68, 68, 0.11);
+  border-color: 3px solid #ededed;
+  box-sizing: border-box;
+  margin-top: 4px;
+  opacity: 0;
+  overflow: hidden;
+  padding: var(--list-padding-top-bottom) 0px;
+  pointer-events: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: var(--list-max-height);
+  -webkit-transform-origin: 50% 0;
+  -ms-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+  -webkit-transform: scale(0.75) translateY(-21px);
+  -ms-transform: scale(0.75) translateY(-21px);
+  transform: scale(0.75) translateY(-21px);
+  -webkit-transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
+  transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
+  z-index: 9; 
+}
+.nice-select .list:hover .option:not(:hover) {
+  background-color: transparent !important; 
+}
+.nice-select .option {
+  cursor: pointer;
+  font-weight: 400;
+  line-height: var(--list-item-line-height);
+  list-style: none;
+  min-height: var(--list-item-min-height);
+  outline: none;
+  padding-left: var(--list-item-padding-left);
+  padding-right: var(--list-item-padding-right);
+  text-align: left;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.nice-select .option:first-child {
+	display: none;
+}
+span.current {
+	color: var(--list-text-color);
+}
+.nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus {
+  background-color: var(--list-item-bg-color);
+}
+.nice-select .option.selected {
+  font-weight: bold; 
+}
+.nice-select .option.disabled {
+  background-color: transparent;
+  color: #999;
+  cursor: default; 
+}
+.no-csspointerevents .nice-select .list {
+display: none; 
+}
+.no-csspointerevents .nice-select.open .list {
+display: block; 
+}
+::-webkit-scrollbar {
+  width: 1px;
+}
+</style>
+  </div>
+  <form
+    method="post"
+    name="wf-form-Subscribe"
+    data-name="Subscribe"
+    class="form"
+    data-waitlist-form
+    data-wf-page-id="674600c015f207d3042a594c"
+    data-wf-element-id="b5151bcb-1313-97b3-4cb5-9187972bc60f"
+  >
+    <div id="w-node-b5151bcb-1313-97b3-4cb5-9187972bc610-042a594c" class="div-block-6">
+      <div class="dropdown-wrapper">
+        <div class="i-am-wrapper">
+          <div class="_16-150-2">I am a</div>
+          <div class="deco-line"></div>
+        </div><select id="IAM" name="IAM" data-name="IAM" required autocomplete="off" class="form-field select-field wide w-select">
+          <option value="">I'm a</option>
+          <option value="User">User</option>
+          <option value="Partner">Partner</option>
+          <option value="Investor">Investor</option>
+        </select>
+      </div><input
+        class="text-field-2 w-input"
+        maxlength="256"
+        name="email-3"
+        data-name="Email 3"
+        placeholder="Insert your email"
+        type="email"
+        id="email-3"
+        aria-label="Email"
+        required
+      />
+    </div><input type="submit" data-wait="Join Waitlist" class="submit-button-2 w-button" value="Join Waitlist" />
+  </form>
+  <div class="success-message w-form-done" tabindex="-1">
+    <div>Thank you! Your submission has been received!</div>
+  </div>
+  <div class="error-message w-form-fail">
+    <div class="text-block-5">Oops! Something went wrong while submitting the form.</div>
+  </div>
+</div>
+
+<script is:inline>
+  // Runs in the capture phase on the <form>, i.e. before webflow.js's
+  // delegated jQuery `submit` handler on `document`. Stopping propagation keeps
+  // Webflow from posting the form anywhere; no network request is made.
+  document.querySelectorAll('form[data-waitlist-form]').forEach(function (form) {
+    form.addEventListener(
+      'submit',
+      function (event) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        // TODO: connect the waitlist webhook here, e.g. POST the form data to a
+        // Cloudflare Pages Function that reads the webhook URL from a Pages
+        // environment variable. Never commit endpoints or keys to the repo.
+
+        var block = form.closest('.w-form');
+        var done = block && block.querySelector('.w-form-done');
+        form.style.display = 'none';
+        if (done) {
+          done.style.display = 'block';
+          done.focus();
+        }
+      },
+      true
+    );
+  });
+</script>

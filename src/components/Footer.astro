@@ -1,0 +1,87 @@
+---
+import SocialLinks from './SocialLinks.astro';
+
+interface Props {
+  /**
+   * `landing` mirrors the index footer; `legal` mirrors the policy pages'
+   * footer (wrapper div, unlinked Hyper logo, two-line Hyper copy).
+   */
+  variant?: 'landing' | 'legal';
+  /** Path of the current page, for aria-current on the legal links. */
+  current?: '/privacy-policy' | '/terms-and-conditions';
+}
+
+const { variant = 'landing', current } = Astro.props;
+const isLanding = variant === 'landing';
+const legalLinks = [
+  { href: '/terms-and-conditions', label: 'Terms of Service', cls: '_14-34 footer lm-0' },
+  { href: '/privacy-policy', label: 'Privacy Policy', cls: '_14-34 footer' },
+] as const;
+const Wrapper = isLanding ? Fragment : 'div';
+---
+
+<Wrapper {...(isLanding ? {} : { class: 'footer-wrapper' })}>
+  <div class="footer-section">
+    <div class="container">
+      <div class="terms-section">
+        <div class="footer-logo-wrapper">
+          <img src="/images/odd-academia_logo.svg" loading="lazy" alt="Odd Academia" class="logo-footer" />
+          <div class="_16-150 white bm-12">
+            Email : <a href="mailto:se-on@oddacademia.com" class="white-link">se-on@oddacademia.com</a>
+          </div>
+          <SocialLinks />
+        </div>
+        <div class="div-block-4">
+          <div class="hyper-logo-wrapper">
+            <div class="hyper-text-semibold">Launched with</div>
+            {
+              isLanding ? (
+                <a href="https://www.hyperhq.com/" target="_blank" rel="noopener" class="w-inline-block" aria-label="Hyper">
+                  <img src="/images/hyper.svg" loading="lazy" alt="" />
+                </a>
+              ) : (
+                <div>
+                  <img src="/images/hyper.svg" loading="lazy" alt="Hyper" />
+                </div>
+              )
+            }
+          </div>
+          {
+            isLanding ? (
+              <div class="hyper-text-regular">
+                The best way to fund and launch your app. Accelerate Process has helped 1,528 founders raise over $482 million since 2015.
+              </div>
+            ) : (
+              <div class="hyper-text-regular">
+                The best way to fund and launch your app.
+                <br />
+                Accelerate Process has helped 1,528 founders raise over $482 million since 2015.
+              </div>
+            )
+          }
+        </div>
+      </div>
+      <div class="div-block-5">
+        <div class:list={['_16-150 white', { 'mob-center': isLanding }]}>©2026 oddAcademia. All rights reserved.</div>
+        <div class="div-block-2">
+          {
+            legalLinks.map((l) => (
+              <div class={l.cls}>
+                {current === l.href ? (
+                  <a href={l.href} aria-current="page" class="link w--current">
+                    {l.label}
+                  </a>
+                ) : (
+                  <a href={l.href} class="link">
+                    {l.label}
+                  </a>
+                )}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <p class="footer-credit">Portfolio rebuild by noirvision — original built in Webflow for Hyper.</p>
+    </div>
+  </div>
+</Wrapper>

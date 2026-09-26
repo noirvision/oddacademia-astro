@@ -1,0 +1,52 @@
+---
+import ContentImage from './ContentImage.astro';
+import how from '../assets/how.avif';
+
+const steps = [
+  {
+    id: '594a6460-0f6c-1500-0eb0-4ae955dc90cf',
+    iconId: '594a6460-0f6c-1500-0eb0-4ae955dc90d0',
+    icon: 'icon-001.svg',
+    title: 'Create a Profile',
+    text: 'Build a professional profile that links to all your published work, showcasing your expertise and contributions.',
+  },
+  {
+    id: '31635767-7d61-b031-2ffd-835168dee242',
+    iconId: '31635767-7d61-b031-2ffd-835168dee243',
+    icon: 'icon-002.svg',
+    title: 'Publish and Share',
+    text: 'Upload your research, which will be distributed directly to readers around  the world.',
+  },
+  {
+    id: '5ab087ff-13ab-34f2-7dad-b8582a5e07be',
+    iconId: '5ab087ff-13ab-34f2-7dad-b8582a5e07bf',
+    icon: 'icon-003.svg',
+    title: 'Receive Peer Validation',
+    text: 'Connect with a global community of independent thinkers and researchers who can engage with and validate your work.',
+  },
+];
+---
+
+<div class="section dark-blue _110-110">
+  <div class="container">
+    <h2 data-w-id="a128666d-bc06-b528-e9ed-e6d2901a13db" class="h2 center white bm-52">How It Works</h2><ContentImage
+      src={how}
+      width={1242}
+      widths={[640, 960, 1242, 1800, 2484]}
+      sizes="(max-width: 1350px) 92vw, 1242px"
+      data-w-id="f7d96042-7d8a-9167-d6f1-35fb9dfb66a5"
+      class="hiw-img"
+    />
+    <div class="w-layout-grid _3-col-grid mob">
+      {
+        steps.map((s) => (
+          <div id={`w-node-_${s.id}-042a594c`} data-w-id={s.id} class="hiw-card-wrapper">
+            <img src={`/images/${s.icon}`} loading="lazy" alt="" id={`w-node-_${s.iconId}-042a594c`} class="icon-01 bm-14" />
+            <h1 class="h3 center white mob-20 bm-8">{s.title}</h1>
+            <p class="_16-150 center white _70">{s.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

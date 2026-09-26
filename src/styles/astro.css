@@ -1,0 +1,31 @@
+/*
+ * Astro-specific additions. The Webflow stylesheets (normalize.css,
+ * components.css, odd-academia.css) are kept unmodified.
+ */
+
+/* <Picture> wraps each <img> in a <picture>; keep it out of the box tree so
+   flex/grid layouts behave exactly as with the original bare <img>. */
+picture {
+  display: contents;
+}
+
+/* With display: contents, <source> would otherwise become a flex/grid item
+   and pick up the container's gap. Source selection is unaffected. */
+picture > source {
+  display: none;
+}
+
+/* <Picture> emits explicit width/height attributes (for CLS). Webflow's
+   `img { max-width: 100% }` would otherwise squash the aspect ratio. */
+picture > img {
+  height: auto;
+}
+
+/* Portfolio credit line under the footer (not in the original design). */
+.footer-credit {
+  color: var(--white-70);
+  text-align: center;
+  margin: 1.5rem 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
